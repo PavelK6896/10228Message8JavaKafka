@@ -24,9 +24,15 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.kafka:spring-kafka-test'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:kafka'
+
+    testImplementation ('org.springframework.kafka:spring-kafka-test') {
+        // needed if downgrading to Apache Kafka 2.8.1
+        exclude group: 'org.apache.zookeeper', module: 'zookeeper'
+    }
+    testImplementation "org.apache.kafka:kafka-clients:2.8.1:test"
+    testImplementation "org.apache.kafka:kafka_2.13:2.8.1:test"
 }
 
 dependencyManagement {
